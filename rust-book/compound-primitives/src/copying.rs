@@ -1,6 +1,8 @@
 
 use std::ops::Add;
 
+const DIM: usize = 2;
+
 fn type_of<T>(_: &T) -> &'static str {
     std::any::type_name::<T>()
 }
@@ -15,7 +17,11 @@ impl Add for Point {
     type Output = Point;
 
     fn add(self, other: Point) -> Point {
-        Point {x: [self.x[0] + other.x[0], self.x[1] + other.x[1]]}
+        let mut new = Point {x: [0; DIM]};
+        for i in 0..DIM {
+            new.x[i] = self.x[i] + other.x[i]; 
+        }
+        new
     }
 }
 
@@ -23,21 +29,33 @@ impl Add for &Point {
     type Output = Point;
 
     fn add(self, other: &Point) -> Point {
-        Point {x: [self.x[0] + other.x[0], self.x[1] + other.x[1]]}
+        let mut new = Point {x: [0; DIM]};
+        for i in 0..DIM {
+            new.x[i] = self.x[i] + other.x[i]; 
+        }
+        new
     }
 }
+
 
 impl Add for &mut Point {
     type Output = Point;
 
-    fn add(self, other: &mut Point) -> &mut Point {
-        Point {x: [self.x[0] + other.x[0], self.x[1] + other.x[1]]}
+    fn add(self, other: &mut Point) -> Point {
+        let mut new = Point {x: [0; DIM]};
+        for i in 0..DIM {
+            new.x[i] = self.x[i] + other.x[i]; 
+        }
+        new
     }
 }
 
 
+
+
 fn infun(a: &mut Point, b: &mut Point) {
-    *a = a + b;
+    *a = *a + *b;
+    println!("jjjj{:?}", a);
     
 }
 
@@ -57,7 +75,7 @@ pub fn main() {
     
     println!("a+b: {:?}",type_of(&c));
     println!("a+b: {:?}",a);
-    infun(&mut a, &b, &c);
+    infun(&mut a, &mut b);
     println!("a+b: {:?}",a);    
 }
 
