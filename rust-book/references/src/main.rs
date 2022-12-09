@@ -15,5 +15,4 @@ fn main() {
     let ref_s2 = &mut s2;
     println!("Type of ref_s2 is: {}", type_of(&ref_s2));
 
-    
 }
