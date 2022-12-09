@@ -25,6 +25,7 @@ impl Add for Point {
     }
 }
 
+
 impl Add for &Point {
     type Output = Point;
 
@@ -51,15 +52,11 @@ impl Add for &mut Point {
 }
 
 
-
-
 fn infun(a: &mut Point, b: &mut Point) {
     *a = *a + *b;
     println!("jjjj{:?}", a);
     
 }
-
-
 
 
 pub fn main() {
