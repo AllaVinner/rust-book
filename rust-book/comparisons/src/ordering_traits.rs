@@ -34,8 +34,8 @@ impl PartialOrd<B> for A {
 pub fn main() {
     let a = A{a: 1};
     let b = B{b: 2};
-    //println!("a == b {:?}", a == b);
-    //println!("a == b {:?}", b == a);
+    println!("a == b {:?}", a == b);
+    println!("a == b {:?}", b == a);
     println!("a < b {:?}", a < b);
     println!("a < b {:?}", a <= b);
 }
