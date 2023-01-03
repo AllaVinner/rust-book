@@ -19,6 +19,7 @@ impl PartialEq<B> for A {
 
 impl PartialEq<A> for B {
     fn eq(&self, other: &A) -> bool {
+ 
         other == self
     }
 }
