@@ -1,5 +1,7 @@
 mod type_of;
+mod point_struct;
+mod generic_point;
 
 fn main() {
-    type_of::main();
+    generic_point::main();
 }
