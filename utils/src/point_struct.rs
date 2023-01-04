@@ -26,6 +26,8 @@ impl Sub<&Point> for &Point {
     }
 }
 
+impl Eq for Point {}
+
 impl PartialEq for Point {
     fn eq(&self, other: &Self) -> bool {
         return self.x == other.x && self.y == other.y;
