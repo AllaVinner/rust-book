@@ -28,5 +28,5 @@ pub fn main() {
     let b = Point {x: -23, y: -11};
     println!("{:?}", a);
     println!("{:?}", type_of(&a));
-    println!("{:?}", &a+&   b);
+    println!("{:?}", &a+&b);
 }
