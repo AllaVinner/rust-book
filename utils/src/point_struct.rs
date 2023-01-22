@@ -2,6 +2,7 @@ use std::ops::{Add, Sub};
 use std::ops::Mul;
 
 
+
 #[derive(Debug, Copy, Clone)]
 struct Point {
     x: i32,
