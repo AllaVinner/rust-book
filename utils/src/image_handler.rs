@@ -16,8 +16,8 @@ pub fn main() {
 
 
 fn julia_fractal() {
-    let imgx = 800;
-    let imgy = 800;
+    let imgx = 1600;
+    let imgy = 1600;
 
     let scalex = 3.0 / imgx as f32;
     let scaley = 3.0 / imgy as f32;
@@ -54,6 +54,6 @@ fn julia_fractal() {
     }
 
     // Save the image as “fractal.png”, the format is deduced from the path
-    imgbuf.save("fractal.png").unwrap();
+    imgbuf.save("fractal2.png").unwrap();
 }
 
