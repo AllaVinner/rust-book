@@ -38,18 +38,18 @@ fn julia_fractal() {
             let cx = y as f32 * scalex - 1.5;
             let cy = x as f32 * scaley - 1.5;
 
-            let c = num_complex::Complex::new(0., 0.);
+            let c = num_complex::Complex::new(-0.5, 0.4);
             let mut z = num_complex::Complex::new(cx, cy);
 
             let mut i = 0;
-            while i < 255 && z.norm() <= 2.0 {
+            while i < 255/20 && z.norm() <= 2.0 {
                 z = z * z + c;
                 i += 1;
             }
 
             let pixel = imgbuf.get_pixel_mut(x, y);
             let image::Rgb(data) = *pixel;
-            *pixel = image::Rgb([data[0], i as u8, data[2]]);
+            *pixel = image::Rgb([data[0], i*20 as u8, data[2]]);
         }
     }
 
