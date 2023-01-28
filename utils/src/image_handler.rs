@@ -38,7 +38,7 @@ fn julia_fractal() {
             let cx = y as f32 * scalex - 1.5;
             let cy = x as f32 * scaley - 1.5;
 
-            let c = num_complex::Complex::new(-0.5, 0.4);
+            let c = num_complex::Complex::new(-0.9, 0.4);
             let mut z = num_complex::Complex::new(cx, cy);
 
             let mut i = 0;
