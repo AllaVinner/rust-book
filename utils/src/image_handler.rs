@@ -1,21 +1,31 @@
 use image::io::Reader as ImageReader;
 use image;
 use num_complex;
+use core::panic;
+use std::env;
 
 fn type_of<T>(_:&T) -> &'static str {
     std::any::type_name::<T>()
 }
 
 pub fn main() {
+    
+    let args: Vec<String> = env::args().collect();
+    let (cx, cy) = match args.len() {
+        1 => (-0.4, 0.1),
+        3 => (args.get(1).unwrap().parse::<f32>().unwrap(), args.get(2).unwrap().parse::<f32>().unwrap()),
+        _ => panic!("Wrong number input")
+    };  
     let img = image::open("blocks.jpg").expect("File not found!");
     //let img2 = ImageReader::new(Cursor::new(bytes)).with_guessed_format()?.decode()?;
     println!("{:?}", type_of(&img));
     //println!("{:?}", type_of::type_of(&img2));
-    julia_fractal()
+    julia_fractal(cx, cy);
 }
 
 
-fn julia_fractal() {
+fn julia_fractal(cx: f32, cy: f32) {
+    let c = num_complex::Complex::new(cx, cy);
     let imgx = 800;
     let imgy = 800;
 
@@ -38,7 +48,7 @@ fn julia_fractal() {
             let cx = y as f32 * scalex - 1.5;
             let cy = x as f32 * scaley - 1.5;
 
-            let c = num_complex::Complex::new(-0.9, 0.4);
+            
             let mut z = num_complex::Complex::new(cx, cy);
 
             let mut i = 0;
