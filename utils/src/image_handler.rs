@@ -9,7 +9,7 @@ fn type_of<T>(_:&T) -> &'static str {
 }
 
 struct Input {
-    z 
+    
 }
 
 pub fn main() {
