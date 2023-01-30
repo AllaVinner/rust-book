@@ -8,6 +8,10 @@ fn type_of<T>(_:&T) -> &'static str {
     std::any::type_name::<T>()
 }
 
+struct Input {
+    z 
+}
+
 pub fn main() {
     
     let args: Vec<String> = env::args().collect();
