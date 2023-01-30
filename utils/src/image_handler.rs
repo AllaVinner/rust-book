@@ -3,28 +3,32 @@ use image;
 use num_complex;
 use core::panic;
 use std::env;
+use clap::Parser;
+
+/// Simple program to greet a person
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+   /// Name of the person to greet
+   #[arg(short, long, default_value_t = -0.5)]
+   real: f32,
+
+   /// Number of times to greet
+   #[arg(short, long, default_value_t = 0.3)]
+   imag: f32,
+}
+
 
 fn type_of<T>(_:&T) -> &'static str {
     std::any::type_name::<T>()
 }
 
-struct Input {
-    
-}
+
 
 pub fn main() {
-    
-    let args: Vec<String> = env::args().collect();
-    let (cx, cy) = match args.len() {
-        1 => (-0.4, 0.1),
-        3 => (args.get(1).unwrap().parse::<f32>().unwrap(), args.get(2).unwrap().parse::<f32>().unwrap()),
-        _ => panic!("Wrong number input")
-    };  
-    let img = image::open("blocks.jpg").expect("File not found!");
-    //let img2 = ImageReader::new(Cursor::new(bytes)).with_guessed_format()?.decode()?;
-    println!("{:?}", type_of(&img));
+    let args: Args = Args::parse();
     //println!("{:?}", type_of::type_of(&img2));
-    julia_fractal(cx, cy);
+    julia_fractal(args.real, args.imag);
 }
 
 
