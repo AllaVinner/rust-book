@@ -17,38 +17,42 @@ struct Args {
    #[arg(short, long, default_value_t = 0.3)]
    imag: f32,
 
-   #[arg(value_enum, short, long, default_value_t = Mode::Constant)]
-   mode: Mode,
+   #[arg(value_enum, short, long, default_value_t = Fractal::Julia)]
+   fractal: Fractal,
 }
 
 #[derive(ValueEnum, Clone, Debug)]
-enum Mode {
-    Constant,
-    Initial
+enum Fractal {
+    Julia,
+    Mandelbrot
 }
-
-
-fn type_of<T>(_:&T) -> &'static str {
-    std::any::type_name::<T>()
-}
-
 
 
 pub fn main() {
     let args: Args = Args::parse();
-    //println!("{:?}", type_of::type_of(&img2));
-    fractal(args.real, args.imag, args.mode);
+    fractal(args.real, args.imag, args.fractal);
 }
 
-fn fractal(constant_real: f32, const_imag: f32, mode: Mode) {
-    match mode {
-        Mode::Constant => julia_fractal(constant_real, constant_real),
-        Mode::Initial => mandelbrot_fractal(constant_real, constant_real),
+fn fractal(constant_real: f32, const_imag: f32, fractal: Fractal) {
+    match fractal {
+        Fractal::Julia => julia_fractal(constant_real, constant_real),
+        Fractal::Mandelbrot => mandelbrot_fractal(constant_real, constant_real),
     }
 }
 
-fn julia_fractal(cx: f32, cy: f32) {
-    let c = num_complex::Complex::new(cx, cy);
+fn julia_generator(c_re: f32, c_im: f32) -> impl Fn() {
+    
+
+    let mut i = 0;
+    while i < 255/20 && z.norm() <= 2.0 {
+        z = z * z + c;
+        i += 1;
+    }
+    34
+}
+
+fn julia_fractal(c_re: f32, c_im: f32) {
+    let c = num_complex::Complex::new(c_re, c_im);
     let imgx = 800;
     let imgy = 800;
 
