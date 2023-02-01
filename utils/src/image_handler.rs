@@ -27,7 +27,6 @@ enum Fractal {
     Mandelbrot
 }
 
-
 pub fn main() {
     let args: Args = Args::parse();
     fractal(args.real, args.imag, args.fractal);
@@ -48,7 +47,7 @@ fn julia_generator(c_re: f32, c_im: f32) -> impl Fn() {
         z = z * z + c;
         i += 1;
     }
-    34
+    
 }
 
 fn julia_fractal(c_re: f32, c_im: f32) {
@@ -94,8 +93,6 @@ fn julia_fractal(c_re: f32, c_im: f32) {
     imgbuf.save("fractal2.png").unwrap();
 }
 
-
-
 fn mandelbrot_fractal(cx: f32, cy: f32) {
     let z0 = num_complex::Complex::new(cx, cy);
     let imgx = 2300;
@@ -120,7 +117,6 @@ fn mandelbrot_fractal(cx: f32, cy: f32) {
             let cx = y as f32 * scalex - 2.;
             let cy = x as f32 * scaley - 1.5;
 
-            
             let mut c = num_complex::Complex::new(cx, cy);
             let mut z = z0;
             let mut i = 0;
@@ -138,3 +134,6 @@ fn mandelbrot_fractal(cx: f32, cy: f32) {
     // Save the image as “fractal.png”, the format is deduced from the path
     imgbuf.save("fractal2.png").unwrap();
 }
+
+
+
