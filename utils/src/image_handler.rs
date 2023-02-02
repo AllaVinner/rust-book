@@ -39,6 +39,7 @@ fn fractal(constant_real: f32, const_imag: f32, fractal: Fractal) {
     }
 }
 
+/*
 fn julia_generator(c_re: f32, c_im: f32) -> impl Fn() {
     
 
@@ -49,6 +50,7 @@ fn julia_generator(c_re: f32, c_im: f32) -> impl Fn() {
     }
     
 }
+*/
 
 fn julia_fractal(c_re: f32, c_im: f32) {
     let c = num_complex::Complex::new(c_re, c_im);
