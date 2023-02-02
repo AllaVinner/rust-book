@@ -1,28 +1,26 @@
 use clap::{Parser, ValueEnum};
+use std::string::String;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    #[arg(short, long)]
-    basic_option: String,
+    #[arg()]
+    basic_arg: String,
 
    #[arg(short, long, default_value_t = -0.5)]
-   float: f32,
+   basic_option: f32,
 
-   #[arg(short, long, default_value_t = 0.3)]
-   imag: f32,
+   #[arg(short, long, default_value_t = String::from("Default Input"))]
+   string: String,
 
-   #[arg(short, long, default_value_t = 0.3)]
-   optional: Option<i32>,
-
-   #[arg(value_enum, short='a', long, default_value_t = Fractal::Julia)]
-   fractal: Fractal,
+   #[arg(value_enum, short='a', long, default_value_t = Category::A)]
+   category: Category,
 }
 
 #[derive(ValueEnum, Clone, Debug)]
-enum Fractal {
-    Julia,
-    Mandelbrot
+enum Category {
+    A,
+    B,
 }
 
 pub fn main() {
