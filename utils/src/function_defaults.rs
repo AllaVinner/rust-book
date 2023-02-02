@@ -1,5 +1,3 @@
-use std::option;
-
 
 #[derive(Debug)]
 pub struct Optional {
