@@ -5,5 +5,5 @@ mod image_handler;
 mod cli_input;
 
 fn main() {
-    image_handler::main();
+    cli_input::main();
 }
