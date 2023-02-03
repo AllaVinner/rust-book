@@ -20,8 +20,8 @@ struct Args {
    #[arg(short, long, default_value_t = String::from("Default Input"))]
    string: String,
 
-   #[arg(short, long, default_value_t = PathBuf::from("myfile.txt"))]
-   path: PathBuf,
+   #[arg(short, long)]
+   path: Option<PathBuf>,
 
    #[arg(value_enum, short='a', long, default_value_t = Category::A, 
    long_help="This command is a bit more complex than the others")]

@@ -18,7 +18,7 @@ struct Args {
    real: Number,
    #[arg(short, long, default_value_t = 0.3)]
    imag: Number,
-   #[]
+   
    #[arg(value_enum, short, long, default_value_t = Fractal::Julia)]
    fractal: Fractal,
 }
