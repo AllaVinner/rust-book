@@ -62,6 +62,11 @@ struct GridImageConfiguration {
     y_max: f64,
 }
 
+impl Default for GridImageConfiguration {
+    fn default() -> Self {
+        Self { height: 800, width: 800, x_min: -5., x_max: 5., y_min: -5., y_max: 5.}
+    }
+}
 
 fn julia_fractal(c_re: f32, c_im: f32) {
     let c = num_complex::Complex::new(c_re, c_im);
