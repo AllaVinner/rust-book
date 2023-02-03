@@ -5,6 +5,7 @@ use core::panic;
 use std::env;
 use clap::{Parser, ValueEnum};
 
+
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -51,6 +52,16 @@ fn julia_generator(c_re: f32, c_im: f32) -> impl Fn() {
     
 }
 */
+type Pixels = u32;
+struct GridImageConfiguration {
+    height: Pixels,
+    width: Pixels,
+    x_min: f64,
+    x_max: f64,
+    y_min: f64,
+    y_max: f64,
+}
+
 
 fn julia_fractal(c_re: f32, c_im: f32) {
     let c = num_complex::Complex::new(c_re, c_im);
