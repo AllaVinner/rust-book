@@ -4,7 +4,7 @@ use num_complex;
 use core::panic;
 use std::env;
 use clap::{Parser, ValueEnum};
-use std::path::Path;
+use std::path::PathBuf;
 
 type Pixels = u32;
 type Number = f64;
@@ -18,9 +18,22 @@ struct Args {
    real: Number,
    #[arg(short, long, default_value_t = 0.3)]
    imag: Number,
-   
+   #[arg(short, long, default_value_t = String::from("fractal.png"))]
+   save_path: String,
    #[arg(value_enum, short, long, default_value_t = Fractal::Julia)]
    fractal: Fractal,
+   #[arg(long, default_value_t = 800)]
+   image_height: Pixels,
+   #[arg(long, default_value_t = 800)]
+   image_width: Pixels,
+   #[arg(long, default_value_t = -3.)]
+   real_min: Number,
+   #[arg(long, default_value_t = 3.)]
+   real_max: Number,
+   #[arg(long, default_value_t = -3.)]
+   imag_min: Number,
+   #[arg(long, default_value_t = 3.)]
+   imag_max: Number,
 }
 
 #[derive(ValueEnum, Clone, Debug)]
@@ -40,25 +53,33 @@ struct GridImageConfiguration {
 
 impl Default for GridImageConfiguration {
     fn default() -> Self {
-        Self { height: 800, width: 800, x_min: -5., x_max: 5., y_min: -5., y_max: 5.}
+        Self { height: 800, width: 800, x_min: -3., x_max: 3., y_min: -3., y_max: 3.}
     }
 }
 
 pub fn main() {
     let args: Args = Args::parse();
+    let image_config = GridImageConfiguration{
+        height: args.image_height,
+        width: args.image_width,
+        x_min: args.real_min,
+        x_max: args.real_max,
+        y_min: args.imag_min,
+        y_max: args.imag_max
+    };
 
-    fractal(args.real, args.imag, args.fractal);
+    fractal(args.real, args.imag, args.fractal, image_config, PathBuf::from(args.save_path));
 }
 
-fn fractal(constant_real: f32, const_imag: f32, fractal: Fractal) {
+fn fractal(constant_real: Number, const_imag: Number, fractal: Fractal, image_config: GridImageConfiguration, save_path: PathBuf) {
     match fractal {
-        Fractal::Julia => julia_fractal(constant_real, constant_real),
+        Fractal::Julia => julia_fractal(constant_real, constant_real, image_config, save_path),
         Fractal::Mandelbrot => panic!("Not mandelbrot"),
     }
 }
 
 
-fn julia_fractal(c_re: Number, c_im: Number, config: GridImageConfiguration, save_path: &Path) {
+fn julia_fractal(c_re: Number, c_im: Number, config: GridImageConfiguration, save_path: PathBuf) {
     let c = num_complex::Complex::new(c_re, c_im);
 
     let range_x = config.x_max-config.x_min;
