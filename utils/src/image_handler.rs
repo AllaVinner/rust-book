@@ -10,7 +10,6 @@ type Pixels = u32;
 type Number = f64;
 
 
-/// Simple program to greet a person
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
