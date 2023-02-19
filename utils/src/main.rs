@@ -4,7 +4,8 @@ mod generic_point;
 mod image_handler;
 mod cli_input;
 mod function_defaults;
+mod arrays;
 
 fn main() {
-    image_handler::main();
+    arrays::main();
 }
