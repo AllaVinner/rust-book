@@ -12,13 +12,26 @@ use ndarray::{Array, array};
 fn creations() {
     let a = array![[1., 2., 4.], [11., 12., 23.,]];
     let b = Array::range(0., 10.,0.5);
+    let c = Array::ones((4,5,6));
+
     println!("{:?}", type_of(&a));
     println!("{:?}", type_of(&b));
 
 }
 
+// https://docs.rs/ndarray/latest/ndarray/doc/ndarray_for_numpy_users/index.html
+fn slicing() {
+    let a = array![[1., 2., 3.], [11., 22., 33.,]];
+    println!("{:?}", a[[0, 1]]);
+}
+
+
 pub fn main() {
+    println!("Creation");
     creations();
+    println!("Slicing");
+    slicing();
+    
 }
 
 
