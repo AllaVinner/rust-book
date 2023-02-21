@@ -4,8 +4,8 @@ pub fn type_of<T>(_:&T) -> &'static str {
     std::any::type_name::<T>()
 }
 
-use num_traits::{cast::FromPrimitive, Zero};
-use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2};
+use num_traits::{cast::FromPrimitive, Zero, zero};
+use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2, ArrayView, Dimension};
 use std::ops::{Add, Div};
 
 
@@ -25,20 +25,12 @@ fn slicing() {
     println!("{:?}", a[[0, 1]]);
 }
 
-fn scalare_fn0(view: Array2<f32>) -> f32 {
-    view.mean().unwrap()
-}
-
-fn scalare_fnv(view: ArrayView2<f32>) -> f32 {
-    view.mean().unwrap()
-}
-
-
-fn scalare_fng<'a, T>(view: ArrayView2<'a, T>) -> T 
+fn scalare_fn<'a, T, D>(view: ArrayView<'a, T, D>) -> T 
 where
-    T: Clone + FromPrimitive + Add<Output = T> + Div<Output = T> + Zero 
+    T: Clone + FromPrimitive + Add<Output = T> + Div<Output = T> + Zero,
+    D: Dimension
 {
-    view.mean().unwrap()
+    view.mean().unwrap_or( zero::<T>())
 }
 
 
@@ -48,10 +40,8 @@ pub fn main() {
     println!("Slicing");
     slicing();
     let a = array![[1., 2., 4.], [11., 12., 23.,]];
-    let m0 = scalare_fn0(a.clone());
-    let mv = scalare_fnv(a.view());
-    let mg = scalare_fng(a.view());
-    println!("Mean is {} {} {}", m0, mg, mv);
+    let m = scalare_fn(a.view());
+    println!("Mean is {}", m);
 
     
 }
