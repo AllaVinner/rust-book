@@ -5,14 +5,14 @@ pub fn type_of<T>(_:&T) -> &'static str {
 }
 
 
-use ndarray::{Array, array};
+use ndarray::{Array, array, Array2, Array3, ArrayBase};
 
 
 
 fn creations() {
     let a = array![[1., 2., 4.], [11., 12., 23.,]];
     let b = Array::range(0., 10.,0.5);
-    let c = Array::ones((4,5,6));
+    let c: Array3<f32> = Array::ones((4,5,6));
 
     println!("{:?}", type_of(&a));
     println!("{:?}", type_of(&b));
@@ -25,12 +25,20 @@ fn slicing() {
     println!("{:?}", a[[0, 1]]);
 }
 
+fn scalare_fn(view: Array2<f32>) -> f32 {
+    view.mean().unwrap()
+}
+
 
 pub fn main() {
     println!("Creation");
     creations();
     println!("Slicing");
     slicing();
+    let a = array![[1., 2., 4.], [11., 12., 23.,]];
+    let m = scalare_fn(a);
+    println!("Mean is {}", m);
+
     
 }
 
