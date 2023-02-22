@@ -5,7 +5,7 @@ pub fn type_of<T>(_:&T) -> &'static str {
 }
 
 use num_traits::{cast::FromPrimitive, Zero, zero};
-use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2, ArrayView, Dimension, Ix3};
+use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2, ArrayView, Dimension, Ix3, IntoDimension};
 use std::ops::{Add, Div};
 
 fn add_tuples(tup1: (usize, usize), tup2: (usize, usize)) -> (usize, usize) {
@@ -43,6 +43,16 @@ where
     view.mean().unwrap_or( zero::<T>())
 }
 
+fn kernel_image<'a, T, D, E>(view: ArrayView<'a, T, D>, window_dim: E) -> Array<T, D> 
+where
+    T: Clone + FromPrimitive + Add<Output = T> + Div<Output = T> + Zero,
+    D: Dimension,
+    E: IntoDimension<Dim = D>
+{
+    let out_dim = view.raw_dim() - Dim(window_dim) + Dim(vec![])
+    let c = Array::from_iter(view.windows(window_dim).into_iter().map(|w| scalare_fn(w))).into_shape(out_dim).unwrap()
+
+}
 
 
 
