@@ -5,14 +5,24 @@ pub fn type_of<T>(_:&T) -> &'static str {
 }
 
 use num_traits::{cast::FromPrimitive, Zero, zero};
-use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2, ArrayView, Dimension};
+use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2, ArrayView, Dimension, Ix3};
 use std::ops::{Add, Div};
+
+fn add_tuples(tup1: (usize, usize), tup2: (usize, usize)) -> (usize, usize) {
+    (tup1.0+tup2.0,
+    tup1.1+tup2.1)
+}
+
+fn sub_tuples(tup1: (usize, usize), tup2: (usize, usize)) -> (usize, usize) {
+    (tup1.0-tup2.0,
+    tup1.1-tup2.1)
+}
 
 
 fn creations() {
     let a = array![[1., 2., 4.], [11., 12., 23.,]];
     let b = Array::range(0., 10.,0.5);
-    let c: Array3<f32> = Array::ones((4,5,6));
+    let c: Array<f32, _> = Array::ones((4,5,6));
 
     println!("{:?}", type_of(&a));
     println!("{:?}", type_of(&b));
@@ -34,15 +44,20 @@ where
 }
 
 
+
+
 pub fn main() {
     println!("Creation");
     creations();
     println!("Slicing");
     slicing();
-    let a = array![[1., 2., 4.], [11., 12., 23.,]];
-    let m = scalare_fn(a.view());
-    println!("Mean is {}", m);
+    let a: Array2<f32> = Array::ones((10,10));
 
+    let window_dim = (2,3);
+    let out_dim = add_tuples(sub_tuples(a.dim(), window_dim), (1,1));
+    let c = Array::from_iter(a.windows(window_dim).into_iter().map(|w| scalare_fn(w))).into_shape(out_dim).unwrap();
+
+    println!("{:?}", c);
     
 }
 
