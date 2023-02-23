@@ -11,3 +11,4 @@ num-complex = "0.4.3"
 clap = { version = "4.1.4", features = ["derive"] }
 ndarray = "0.15.6"
 num-traits = "0.2.15"
+ndarray-image = "0.3.0"
