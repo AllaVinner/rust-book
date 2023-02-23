@@ -5,7 +5,7 @@ pub fn type_of<T>(_:&T) -> &'static str {
 }
 
 use num_traits::{cast::FromPrimitive, Zero, zero};
-use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2, ArrayView, Dimension, Ix3, IntoDimension};
+use ndarray::{Array, array, Array2, Array3, ArrayBase, ArrayView2, ArrayView, Dimension, Ix3, IntoDimension, Dim};
 use std::ops::{Add, Div};
 
 fn add_tuples(tup1: (usize, usize), tup2: (usize, usize)) -> (usize, usize) {
@@ -40,20 +40,19 @@ where
     T: Clone + FromPrimitive + Add<Output = T> + Div<Output = T> + Zero,
     D: Dimension
 {
-    view.mean().unwrap_or( zero::<T>())
+    view.mean().unwrap_or(zero::<T>())
 }
 
-fn kernel_image<'a, T, D, E>(view: ArrayView<'a, T, D>, window_dim: E) -> Array<T, D> 
+fn kernel_image<'a, T, E>(view: ArrayView2<'a, T>, window_dim: E) -> Array2<T> 
 where
     T: Clone + FromPrimitive + Add<Output = T> + Div<Output = T> + Zero,
-    D: Dimension,
-    E: IntoDimension<Dim = D>
+    E: IntoDimension<Dim = Dim<[usize; 2]>> + Copy
 {
-    let out_dim = view.raw_dim() - Dim(window_dim) + Dim(vec![])
-    let c = Array::from_iter(view.windows(window_dim).into_iter().map(|w| scalare_fn(w))).into_shape(out_dim).unwrap()
-
+    let out_dim = view.raw_dim() - Dim(window_dim) + Dim([1,1]);
+    Array::from_iter(view.windows(window_dim).into_iter().map(|w| scalare_fn(w)))
+        .into_shape(out_dim)
+        .unwrap()
 }
-
 
 
 pub fn main() {
@@ -66,8 +65,8 @@ pub fn main() {
     let window_dim = (2,3);
     let out_dim = add_tuples(sub_tuples(a.dim(), window_dim), (1,1));
     let c = Array::from_iter(a.windows(window_dim).into_iter().map(|w| scalare_fn(w))).into_shape(out_dim).unwrap();
-
-    println!("{:?}", c);
+    let d = kernel_image(a.view(), [2,2]);
+    println!("{:?}", d);
     
 }
 
