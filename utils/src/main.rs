@@ -5,7 +5,8 @@ mod image_handler;
 mod cli_input;
 mod function_defaults;
 mod arrays;
+mod array_and_images;
 
 fn main() {
-    arrays::main();
+    array_and_images::main();
 }

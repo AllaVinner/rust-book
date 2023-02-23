@@ -54,6 +54,16 @@ where
         .unwrap()
 }
 
+fn blur<'a, T, E>(view: ArrayView2<'a, T>, window_dim: E) -> Array2<T> 
+where
+    T: Clone + FromPrimitive + Add<Output = T> + Div<Output = T> + Zero,
+    E: IntoDimension<Dim = Dim<[usize; 2]>> + Copy
+{
+    let out_dim = view.raw_dim() - Dim(window_dim) + Dim([1,1]);
+    Array::from_iter(view.windows(window_dim).into_iter().map(|w| w.mean().unwrap_or(zero::<T>())))
+        .into_shape(out_dim)
+        .unwrap()
+}
 
 pub fn main() {
     println!("Creation");
@@ -65,7 +75,7 @@ pub fn main() {
     let window_dim = (2,3);
     let out_dim = add_tuples(sub_tuples(a.dim(), window_dim), (1,1));
     let c = Array::from_iter(a.windows(window_dim).into_iter().map(|w| scalare_fn(w))).into_shape(out_dim).unwrap();
-    let d = kernel_image(a.view(), [2,2]);
+    let d = blur(a.view(), [2,2]);
     println!("{:?}", d);
     
 }
