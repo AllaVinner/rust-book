@@ -34,12 +34,8 @@ pub fn main() {
 
     println!("Before");
     let blurred = blur(image.view(), [10,10,1]);
-    println!("After");
-    println!("{:?}", blurred.shape());
-    println!("{:?}", image.shape());
     let bimage:ImageBuffer<Rgb<u8>, Vec<u8>> = ImageBuffer::from_raw(blurred.shape()[0] as u32, blurred.shape()[1] as u32, blurred.into_raw_vec()).unwrap();
     bimage.save(args.out_path).unwrap();
-
 }
 
 
