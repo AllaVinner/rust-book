@@ -38,11 +38,3 @@ pub fn main() {
     bimage.save(args.out_path).unwrap();
 }
 
-
-
-
-
-
-
-
-
