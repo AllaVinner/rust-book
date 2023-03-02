@@ -1,7 +1,7 @@
 
 
 // Defining Trait
-trait MyTrait {
+pub trait MyTrait {
     // Declare Trait function
 	fn fun1(&self) -> i32;
     // Initiate default function (Can be overwritten)
