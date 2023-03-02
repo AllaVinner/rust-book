@@ -1,9 +1,20 @@
+use std::ops::{Sub, Add};
 
+const N: i32 = 5;
 
-const N: u32 = 5;
-
+#[derive(Debug, Clone)]
 pub struct Z {
     pub x: i32
+}
+
+pub trait Modules {
+    fn resolve(&self) -> Z;
+}
+
+impl Modules for Z {
+    fn resolve(&self) -> Z {
+        Z{x: self.x % N}
+    }
 }
 
 
