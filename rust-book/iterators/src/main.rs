@@ -60,7 +60,6 @@ impl CargoIterator for &str {
 }
 
 
-
 fn main() {
     for f in init_fibonacci() {
         println!("Next fibonacci is {:?}", f);
