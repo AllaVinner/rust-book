@@ -41,5 +41,8 @@ fn main() {
             break;
         }
     }
+    
+    let fib_sum: u32 = init_fibonacci().map(|f| f/2).take_while(|f| *f < 1000).sum();
 
+    println!("Sum of half fib is {:?}", fib_sum);
 }
