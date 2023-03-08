@@ -38,10 +38,6 @@ struct CargoValue<'a> {
     iter: Chars<'a>
 }
 
-fn cargo_value(input: &str) -> CargoValue<'_> {
-    CargoValue {iter: input.chars()}
-}
-
 impl<'a> Iterator for CargoValue<'a> {
     type Item = char;
 
@@ -53,6 +49,15 @@ impl<'a> Iterator for CargoValue<'a> {
     }
 }
 
+trait CargoIterator {
+    fn cargo_value(&self) -> CargoValue<'_>;
+}
+
+impl CargoIterator for &str {
+    fn cargo_value(&self) -> CargoValue<'_> {
+        CargoValue {iter: self.chars()}
+    }
+}
 
 
 
@@ -68,9 +73,11 @@ fn main() {
 
     println!("Sum of half fib is {:?}", fib_sum);
 
-    let s: &str = "som1thi2ads3df";
-    for c in cargo_value(s) {
-        println!("Value from s {:?}", c);
+    let s: &str = "som1thi2ads3dfewrtwetwtert";
+
+    for c in s.cargo_value() {
+        println!("Next value from s is {:?}", c);
     }
+    println!("{:?}", s.cargo_value().count())
 
 }
