@@ -1,3 +1,5 @@
+use std::str::Chars;
+
 fn consuming_adaptor() {
     let v1 = vec![1, 2, 3];
     let v1_iter = v1.iter();
@@ -32,6 +34,26 @@ fn init_fibonacci() -> Fibonacci {
     Fibonacci {current:0, next:1}
 }
 
+struct CargoValue<'a> {
+    iter: Chars<'a>
+}
+
+fn cargo_value(input: &str) -> CargoValue<'_> {
+    CargoValue {iter: input.chars()}
+}
+
+impl<'a> Iterator for CargoValue<'a> {
+    type Item = char;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.iter.next();
+        self.iter.next();
+        self.iter.next();
+        self.iter.next()
+    }
+}
+
+
 
 
 fn main() {
@@ -45,4 +67,10 @@ fn main() {
     let fib_sum: u32 = init_fibonacci().map(|f| f/2).take_while(|f| *f < 1000).sum();
 
     println!("Sum of half fib is {:?}", fib_sum);
+
+    let s: &str = "som1thi2ads3df";
+    for c in cargo_value(s) {
+        println!("Value from s {:?}", c);
+    }
+
 }
