@@ -11,7 +11,8 @@ mod arrays;
 mod array_and_images;
 mod modular_arithmetic;
 mod parallelization;
+mod benchmark;
 
 fn main() {
-    parallellization::main();
+    benchmark::main();
 }
