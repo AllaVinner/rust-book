@@ -10,18 +10,8 @@ mod function_defaults;
 mod arrays;
 mod array_and_images;
 mod modular_arithmetic;
+mod parallelization;
 
 fn main() {
-    let a = Z{x: 34};
-
-    println!("{:?}", &a);
-    println!("{:?}", a.resolve());
-    println!("{:?}", a + a);
-    println!("{:?}", a-a);
-    
-    println!("{:?}", a*a);
-    println!("{:?}", a == a);
-    println!("{:?}", a == a*a);
-    println!("{:?}", a+1);
-    println!("{:?}", a.pow(120));
+    parallellization::main();
 }
