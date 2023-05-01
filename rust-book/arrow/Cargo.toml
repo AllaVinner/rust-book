@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 arrow = "36.0.0"
+datafusion="1.0.1"
