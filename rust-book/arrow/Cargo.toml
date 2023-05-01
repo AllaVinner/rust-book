@@ -6,5 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-arrow = "36.0.0"
-datafusion="1.0.1"
+arrow = "38.0.0"
+datafusion="23.0.0"
+tokio="1.28.0"
