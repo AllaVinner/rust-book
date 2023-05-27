@@ -14,5 +14,5 @@ mod parallelization;
 mod benchmark;
 
 fn main() {
-    benchmark::main();
+    benchmark::main();  
 }
