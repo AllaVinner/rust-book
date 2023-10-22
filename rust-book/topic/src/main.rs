@@ -1,6 +1,6 @@
 
-mod error_handling;
+mod webserver;
 
 fn main() {
-    error_handling::main();
+    webserver::main();
 }
